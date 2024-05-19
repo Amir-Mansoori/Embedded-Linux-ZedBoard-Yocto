@@ -12,7 +12,7 @@ After following these steps, you make sure that you:
   - ``sudo locale-gen en_US.UTF-8``
 - Clone the Poky repository:
   - ``git clone git://git.yoctoproject.org/poky``
-- Checkout to the desired branch of poky repository (will be discussed later):
+- Checkout to the desired branch of poky repository (for the ZedBoard, note that AMD 2023.2 release is based on Langdale (4.1.4)):
   - ``cd poky``
   - ``git checkout <<poky_branch>>``
 - Build your Image:
