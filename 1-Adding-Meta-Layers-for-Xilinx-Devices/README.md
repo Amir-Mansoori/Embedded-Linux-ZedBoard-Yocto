@@ -6,26 +6,26 @@ You can follow the [Build instructions](https://github.com/Xilinx/meta-xilinx/bl
 
 Pay attention that **AMD 2023.2** release is based on **Langdale (4.1.4)** branch, so checkout the poky branch to Langdale (4.1.4) and clone the Langdale branch for all the meta-xilinx layers:
 ```
-git clone -b Langdale https://git.openembedded.org/meta-openembedded.git
-git clone -b Langdale https://github.com/Xilinx/meta-xilinx.git
-git clone -b Langdale https://github.com/Xilinx/meta-xilinx-tools.git
+$git clone -b Langdale https://git.openembedded.org/meta-openembedded.git
+$git clone -b Langdale https://github.com/Xilinx/meta-xilinx.git
+$git clone -b Langdale https://github.com/Xilinx/meta-xilinx-tools.git
 ```
 ### Adding Dependency layers:
-- ``cd poky``
-- ``source oe-init-build-env``
+- ``$cd poky``
+- ``$source oe-init-build-env``
 - configure ``bblayers.conf`` (poky/build/conf/bblayers.conf) by adding dependency layers as shown below using ``bitbake-layers`` command:
   ```
-  bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-oe
-  bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-python
-  bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-filesystems
-  bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-networking
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-microblaze
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-core
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-standalone
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-bsp
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-vendor
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-contrib
-  bitbake-layers add-layer ./<path-to-layer>/meta-xilinx-tools
+  $bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-oe
+  $bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-python
+  $bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-filesystems
+  $bitbake-layers add-layer ./<path-to-layer>/meta-openembedded/meta-networking
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-microblaze
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-core
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-standalone
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-bsp
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-vendor
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-contrib
+  $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx-tools
   ```
 ### Machine Configuration for ZedBoard
 Set the machine configuration in local.conf to zedboard-zynq7:
@@ -35,7 +35,7 @@ If you receive a warning in the build process related to xilinx license, you can
 - ``LICENSE_FLAGS_ACCEPTED += "xilinx"``
 
 After following the build instructions on meta-xilinx layer, run the build command for core-image-minimal:
-- ``bitbake core-image-minimal``
+- ``$bitbake core-image-minimal``
 
 This will generate the linux image and root file system required for the booting on the target.
 ### Prepare the SD card
@@ -53,22 +53,29 @@ You need to:
   - FAT32, 800 MB (``/mnt/boot/``)
   - EXT4, Rest of the SD card (``/mnt/rootfs/``)
 
-You can use the ``fdisk`` and ``mkfs`` commands to create the two partitions and format them with the corresponding file systems.
+You can use the ``fdisk`` and ``mkfs`` commands to create the two partitions and format them with the corresponding file systems. Considering sdb as the storage drive:
+  - ``$sudo fdisk /dev/sdb`` --> follow the displayed information to create the two partitions
+  - ``$sudo mkfs -t vfat -F 32 /dev/sdb1`` --> to create the fat32 partition
+  - ``$sudo mkfs -t ext4 /dev/sdb2`` --> to create the ext4 partition
+  - ``$sudo mount /dev/sdb1 /mnt/boot/``
+  - ``$sudo mount /dev/sdb2 /mnt/rootfs/``
 
-
+Note that /mnt could be different (/media/...).
 
 2- Copy the required files based on the above-mentioned page.
 
 The following files must be copied to the FAT32 partition:
 ```
-cp ${DEPLOY_DIR_IMAGE}/boot.bin /mnt/boot/boot.bin
-cp ${DEPLOY_DIR_IMAGE}/boot.scr /mnt/boot/boot.scr
-cp ${DEPLOY_DIR_IMAGE}/Image /mnt/boot/Image
-cp ${DEPLOY_DIR_IMAGE}/system.dtb /mnt/boot/system.dtb
+$cp ${DEPLOY_DIR_IMAGE}/boot.bin /mnt/boot/boot.bin
+$cp ${DEPLOY_DIR_IMAGE}/boot.scr /mnt/boot/boot.scr
+$cp ${DEPLOY_DIR_IMAGE}/Image /mnt/boot/Image
+$cp ${DEPLOY_DIR_IMAGE}/system.dtb /mnt/boot/system.dtb
 ```
 
 The following command is to extract the root file system in the EXT4 partition:
 ```
-sudo tar -xf ${DEPLOY_DIR_IMAGE}/core-image-minimal-${MACHINE}-${DATETIME}.rootfs.tar.gz -C /mnt/rootfs
-sync
+$sudo tar -xf ${DEPLOY_DIR_IMAGE}/core-image-minimal-${MACHINE}-${DATETIME}.rootfs.tar.gz -C /mnt/rootfs
+$sync
 ```
+
+After completing the previous steps, insert SD card and boot the ZedBoard from SD. using a serial commnication interface like picocom, you can see the linux boot messages in generated by Yocto in the terminal.
