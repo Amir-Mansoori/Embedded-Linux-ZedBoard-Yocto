@@ -17,5 +17,13 @@ Next, copy the recipe for the core-image-minimal to this directory. We want to s
 
 Now you can modify the content of the custom-image.bb recipe. Check the custom-image.bb file in this repository.
 
+Notice that you should use a hashed password which you can generate using this command:
 
+``openssl passwd -5``
+
+Also notice in this part of the recipe:
+
+``EXTRA_USERS_PARAMS = "usermod -p <hashed password> root;"``
+
+that you need to insert a `\` before the `$` signs in the generated hashed password
 
