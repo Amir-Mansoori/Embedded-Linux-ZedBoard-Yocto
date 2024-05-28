@@ -11,7 +11,7 @@ We must create a recipe even for a simple Hello World application. here is the p
 ```
 2- Copy the provided **hello-world_0.1.bb** recipe file in this repository to the recipes-apps/hello/ directory
 
-3- Create files/src/ directory and copy the provided **hello-world.c** application code inside the src directory
+3- Create **``files/src/``** directory inside ``recipes-apps/hello`` directory and copy the provided **hello-world.c** application code inside this src directory
 
 4- Note that after creating your application, you must add it to the final image. To do this, you must add this line inside ``meta-custom/recipes-core/images/``**``custom-image.bb``**:
 	
