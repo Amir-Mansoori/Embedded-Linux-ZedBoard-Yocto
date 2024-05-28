@@ -25,5 +25,11 @@ Also notice in this part of the recipe:
 
 ``EXTRA_USERS_PARAMS = "usermod -p <hashed password> root;"``
 
-that you need to insert a `\` before the `$` signs in the generated hashed password
+that you need to insert a `\` before the `$` signs in the generated hashed password.
+
+At the end go to the poky directory and run:
+
+``bitbake custom-image``
+
+It will create the images and files for linux booting with the password.
 
