@@ -1,4 +1,4 @@
-## Adding Meta Layers for Xilinx Devices
+# Adding Meta Layers for Xilinx Devices
 To customize the target hardware for the ZedBoard, we need to add the meta-xilinx layers. Go to poky directory and add the following layers:
 meta-openembedded, meta-xilinx, meta-xilinx-tools.
 
@@ -10,7 +10,7 @@ $git clone -b Langdale https://git.openembedded.org/meta-openembedded.git
 $git clone -b Langdale https://github.com/Xilinx/meta-xilinx.git
 $git clone -b Langdale https://github.com/Xilinx/meta-xilinx-tools.git
 ```
-### Adding Dependency layers:
+## Adding Dependency layers:
 - ``$cd poky``
 - ``$source oe-init-build-env``
 - configure ``bblayers.conf`` (poky/build/conf/bblayers.conf) by adding dependency layers as shown below using ``bitbake-layers`` command:
@@ -27,7 +27,7 @@ $git clone -b Langdale https://github.com/Xilinx/meta-xilinx-tools.git
   $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx/meta-xilinx-contrib
   $bitbake-layers add-layer ./<path-to-layer>/meta-xilinx-tools
   ```
-### Machine Configuration for ZedBoard
+## Machine Configuration for ZedBoard
 Set the machine configuration in local.conf to zedboard-zynq7:
 - ``MACHINE ?= "zedboard-zynq7"``
 
@@ -38,7 +38,7 @@ After following the build instructions on meta-xilinx layer, run the build comma
 - ``$bitbake core-image-minimal``
 
 This will generate the linux image and root file system required for the booting on the target.
-### Prepare the SD card
+## Prepare the SD card
 Now you can prepare your SD card by storing the required files and images.
 
 [This page](https://github.com/Xilinx/meta-xilinx/blob/master/docs/README.booting.storage.md#booting-from-sd-or-emmc) explains the instructions for booting Xilinx devices with SD card.
