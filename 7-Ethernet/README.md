@@ -1,3 +1,4 @@
+# Ethernet Configuration
 To enable Ethernet in our ZedBoard, we must change some default configurations in Yocto meta-xilinx-tool layer.
 
 Specifically, if you check the **zc702.dtsi** file (poky/build/tmp/work/zedboard_zynq7-poky-linux-gnueabi/device-tree/xilinx-v2023
