@@ -1,4 +1,4 @@
-## Creating a Hello World Application
+# Creating a Hello World Application
 
 In Yocto, we need to create a recipe for any embedded application. While in Buildroot we can directly apply a cross-compiler tool on our C code to obtain the executable file for our application, in Yocto we must provide a recipe containing all the information about our cross-compiler, the storage location of our C code, the dependencies required to build the application and other meta-data. These recipes (with a .bb extention) are then processed by the bitbake command to find and compile the code for us and store the executable in the root file system location.
 
