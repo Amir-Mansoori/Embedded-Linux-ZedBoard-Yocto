@@ -1,4 +1,4 @@
-## Blinking LED
+# Blinking LED
 In this section, we want to toggle an LED on our ZedBoard for 10 times every 1 second.
 
 The LED that we use is connected to the PS MIO7. In ZedBoard, there are 54 MIO pins and 64 EMIO pins (extended to PL), so in total there are 118 pins.
