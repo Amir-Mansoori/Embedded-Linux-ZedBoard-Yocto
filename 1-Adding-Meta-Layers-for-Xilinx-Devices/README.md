@@ -6,9 +6,9 @@ You can follow the [Build instructions](https://github.com/Xilinx/meta-xilinx/bl
 
 Pay attention that **AMD 2023.2** release is based on **Langdale (4.1.4)** branch, so checkout the poky branch to Langdale (4.1.4) and clone the Langdale branch for all the meta-xilinx layers:
 ```
-$git clone -b Langdale https://git.openembedded.org/meta-openembedded.git
-$git clone -b Langdale https://github.com/Xilinx/meta-xilinx.git
-$git clone -b Langdale https://github.com/Xilinx/meta-xilinx-tools.git
+$git clone -b langdale https://git.openembedded.org/meta-openembedded.git
+$git clone -b langdale https://github.com/Xilinx/meta-xilinx.git
+$git clone -b langdale https://github.com/Xilinx/meta-xilinx-tools.git
 ```
 ## Adding Dependency layers:
 - ``$cd poky``
